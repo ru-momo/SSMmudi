@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.suha.mapper.ProductInfoMapper">
+
+    <resultMap id="BaseResultMap" type="ProductInfo">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="info" jdbcType="VARCHAR" property="info"/>
+        <result column="introduce" jdbcType="VARCHAR" property="introduce"/>
+        <result column="type_id" jdbcType="INTEGER" property="typeId"/>
+        <result column="alcoholic_strength" jdbcType="INTEGER" property="alcoholicStrength"/>
+        <result column="area_id" jdbcType="INTEGER" property="areaId"/>
+        <result column="net_weight" jdbcType="INTEGER" property="netWeight"/>
+        <result column="sale_count" jdbcType="INTEGER" property="saleCount"/>
+        <result column="big_img" jdbcType="VARCHAR" property="bigImg"/>
+    </resultMap>
+
+    <!-- SQL片段  -->
+    <sql id="product_info_where">
+        <where>
+            <if test="name != null and name != ''">
+                and title like '%${name}%'
+            </if>
+        </where>
+    </sql>
+
+    <!-- 查询所有的数据 -->
+    <select id="getListInfoByPage" parameterType="map" resultMap="BaseResultMap">
+        select id, name, info, introduce, type_id, alcoholic_strength,
+        area_id, net_weight, sale_count, big_img from product_info
+        <include refid="product_info_where"/>
+        <if test="startIndex != null and pageSize != null">
+            limit #{startIndex}, #{pageSize}
+        </if>
+    </select>
+
+    <!--获取总条数 -->
+    <select id="getListCountByPage" parameterType="map" resultType="int">
+        select count(id) from product_info
+        <include refid="product_info_where"/>
+    </select>
+
+</mapper>

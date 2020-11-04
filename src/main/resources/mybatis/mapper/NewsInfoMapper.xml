@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.suha.mapper.NewsInfoMapper">
+
+    <resultMap id="BaseResultMap" type="NewsInfo">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="content" jdbcType="VARCHAR" property="content"/>
+        <result column="pubdate" jdbcType="TIMESTAMP" property="pubdate"/>
+        <result column="img1" jdbcType="VARCHAR" property="img1"/>
+        <result column="img2" jdbcType="VARCHAR" property="img2"/>
+        <result column="type" jdbcType="INTEGER" property="type"/>
+    </resultMap>
+
+    <!-- SQL片段  -->
+    <sql id="new_info_where">
+        <where>
+            <if test="name != null and name != ''">
+                and title like '%${name}%'
+            </if>
+        </where>
+    </sql>
+
+    <!-- 查询所有的数据 -->
+    <select id="getListInfoByPage" parameterType="map" resultMap="BaseResultMap">
+        select id, title, content, pubdate, img1, img2, type from news_info
+        <include refid="new_info_where"/>
+        <if test="startIndex != null and pageSize != null">
+            limit #{startIndex}, #{pageSize}
+        </if>
+    </select>
+
+    <!--获取总条数 -->
+    <select id="getListCountByPage" parameterType="map" resultType="int">
+        select count(id) from news_info
+        <include refid="new_info_where"/>
+    </select>
+
+    <!-- 降序排列 -->
+    <select id="getNewsInfoByDesc" resultMap="BaseResultMap">
+        select id, title, content, pubdate, img1, img2, type from news_info order by pubdate desc limit 0,4
+    </select>
+
+</mapper>

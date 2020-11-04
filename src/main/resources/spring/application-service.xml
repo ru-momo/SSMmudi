@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <context:component-scan base-package="com.suha.service"/>
+
+    <!-- 开启事务管理器 -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <!-- 加载数据源 -->
+        <property name="dataSource" ref="dataSourceOther"/>
+    </bean>
+    <!--
+        通知，哪些方法上需要执行事务
+    -->
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <!-- 事务的传播行为 -->
+            <!-- REQUIRED：如果有事务，则在事务中执行，如果没有事务，则开启一个新的事物 -->
+            <tx:method name="save*" propagation="REQUIRED"/>
+            <tx:method name="insert*" propagation="REQUIRED"/>
+            <tx:method name="add*" propagation="REQUIRED"/>
+            <tx:method name="create*" propagation="REQUIRED"/>
+            <tx:method name="delete*" propagation="REQUIRED"/>
+            <tx:method name="update*" propagation="REQUIRED"/>
+            <!-- SUPPORTS： 如果有事务， 则在事务中执行，如果没有事务，不会开启新的事物 -->
+            <tx:method name="find*" propagation="SUPPORTS"/>
+            <tx:method name="select*" propagation="SUPPORTS"/>
+            <tx:method name="get*" propagation="SUPPORTS"/>
+        </tx:attributes>
+    </tx:advice>
+    <!-- 定义切面 -->
+    <aop:config>
+        <aop:pointcut id="txPointCut" expression="execution(* com.suha.service..*.*(..))"/>
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="txPointCut"/>
+    </aop:config>
+</beans>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.suha.mapper.TypeInfoMapper">
+
+    <resultMap id="BaseResultMap" type="TypeInfo">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="cname" jdbcType="VARCHAR" property="cname"/>
+        <result column="ename" jdbcType="VARCHAR" property="ename"/>
+        <result column="parent_id" jdbcType="INTEGER" property="parentId"/>
+    </resultMap>
+
+    <!-- SQL片段  -->
+    <sql id="type_info_where">
+        <where>
+            <if test="name != null and name != ''">
+                and cname like '%${name}%'
+            </if>
+        </where>
+    </sql>
+
+    <!-- 查询所有的数据 -->
+    <select id="getListInfoByPage" parameterType="map" resultMap="BaseResultMap">
+        select id, cname, ename, parent_id from type_info
+        <include refid="type_info_where"/>
+        <if test="startIndex != null and pageSize != null">
+            limit #{startIndex}, #{pageSize}
+        </if>
+        order by parent_id
+    </select>
+
+    <!--获取总条数 -->
+    <select id="getListCountByPage" parameterType="map" resultType="int">
+        select count(id) from type_info
+        <include refid="type_info_where"/>
+    </select>
+
+</mapper>

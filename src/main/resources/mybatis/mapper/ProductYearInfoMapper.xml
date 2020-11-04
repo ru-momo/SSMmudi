@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.suha.mapper.ProductYearInfoMapper">
+
+    <resultMap id="BaseResultMap" type="ProductYearInfo">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="wine_id" jdbcType="INTEGER" property="wineId"/>
+        <result column="year" jdbcType="INTEGER" property="year"/>
+        <result column="price" jdbcType="INTEGER" property="price"/>
+        <result column="stock" jdbcType="INTEGER" property="stock"/>
+    </resultMap>
+
+    <!-- SQL片段  -->
+    <sql id="product_year_info_where">
+        <where>
+            <if test="name != null and name != ''">
+                and title like '%${name}%'
+            </if>
+        </where>
+    </sql>
+
+    <!-- 查询所有的数据 -->
+    <select id="getListInfoByPage" parameterType="map" resultMap="BaseResultMap">
+        select id, wine_id, year, price, stock from product_year_info
+        <include refid="product_year_info_where"/>
+        <if test="startIndex != null and pageSize != null">
+            limit #{startIndex}, #{pageSize}
+        </if>
+    </select>
+
+    <!--获取总条数 -->
+    <select id="getListCountByPage" parameterType="map" resultType="int">
+        select count(id) from product_year_info
+        <include refid="product_year_info_where"/>
+    </select>
+
+</mapper>
