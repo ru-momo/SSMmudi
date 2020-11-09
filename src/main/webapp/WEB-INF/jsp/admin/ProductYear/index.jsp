@@ -23,15 +23,15 @@
     <script type="text/javascript"
             src="${pageContext.request.contextPath}/static/Js/common.js"></script>
     <script type="text/javascript"
-            src="${pageContext.request.contextPath}/static/web/Type/main.js"></script>
+            src="${pageContext.request.contextPath}/static/web/ProductYear/main.js"></script>
     <link rel="stylesheet" type="text/css"
-          href="${pageContext.request.contextPath}/static/web/Type/main.css"/>
+          href="${pageContext.request.contextPath}/static/web/ProductYear/main.css"/>
 
 
 </head>
 <body>
 <form class="form-inline definewidth m20" action="index" method="get">
-    名称： <input type="text" name="name" id="name"
+    酒的编号： <input type="text" name="name" id="name"
                  class="abc input-default" placeholder="" value="${name}">&nbsp;&nbsp;
     <button type="submit" class="btn btn-primary">查询</button>&nbsp;&nbsp;
     <button type="button" class="btn btn-success" id="addnew" data-toggle="modal" data-target="#myModal">添加</button>&nbsp;&nbsp;
@@ -96,23 +96,20 @@
                 <input type="reset" name="reset" style="display: none;" />
                 <table class="table table-bordered table-hover definewidth m10">
                     <tr>
-                        <td class="tableleft">中文名称</td>
-                        <td><input type="text" id="cname" name="cname"/></td>
+                        <td class="tableleft">酒的编号</td>
+                        <td><input type="text" id="wineId" name="wineId"/></td>
                     </tr>
                     <tr>
-                        <td class="tableleft">英文名称</td>
-                        <td><input type="text" id="ename" name="ename"></td>
+                        <td class="tableleft">年份</td>
+                        <td><input type="text" id="year" name="year"></td>
                     </tr>
                     <tr>
-                        <td class="tableleft">级别编号(0为父级)</td>
-                        <td><select id="parentId" name="parentId">
-                            <option>0</option>
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                        </select></td>
+                        <td class="tableleft">价格</td>
+                        <td><input type="text" id="price" name="price"></td>
+                    </tr>
+                    <tr>
+                        <td class="tableleft">库存</td>
+                        <td><input type="text" id="stock" name="stock"></td>
                     </tr>
                 </table>
             </form>

@@ -38,7 +38,9 @@
 
     <!-- 降序排列 -->
     <select id="getNewsInfoByDesc" resultMap="BaseResultMap">
-        select id, title, content, pubdate, img1, img2, type from news_info order by pubdate desc limit 0,4
+        select id, title, content, pubdate, img1, img2, type from news_info order by pubdate desc
     </select>
+
+
 
 </mapper>

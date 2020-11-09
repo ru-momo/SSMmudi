@@ -81,7 +81,7 @@ public class WebIndexController {
     @RequestMapping("news")
     public Map<String, Object> newsList(){
         List<NewsInfo> list = nis.getNewsInfoByDesc();
-        return ResponseCode.ok(list);
+        return ResponseCode.ok(list.subList(0,4));
     }
 
 

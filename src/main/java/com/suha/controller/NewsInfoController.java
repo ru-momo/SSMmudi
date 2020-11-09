@@ -1,15 +1,16 @@
 package com.suha.controller;
 
-import com.alibaba.druid.sql.visitor.functions.If;
 import com.suha.pojo.NewsInfo;
 import com.suha.service.NewsInfoService;
 import com.suha.service.RedisService;
+import com.suha.util.MyFile;
 import com.suha.util.Page;
 import com.suha.util.ResponseCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Map;
 
@@ -84,10 +85,19 @@ public class NewsInfoController {
      */
     @ResponseBody
     @RequestMapping(value = "add", method = RequestMethod.POST)
-    public Map<String, Object> add(NewsInfo record) {
+    public Map<String, Object> add(NewsInfo record, MultipartFile[] files) throws Exception {
         if (record.getTitle() == null || record.getContent() == null ||
                 record.getPubdate() == null || record.getType() == null) {
             return ResponseCode.error("参数不全");
+        }
+        for (int i = 0; i < files.length; i++) {
+            MultipartFile file = files[i];
+            String s = file.getOriginalFilename();
+            String newFile = MyFile.newFile(s, file);
+            if (i == 0)
+                record.setImg1(newFile);
+            else
+                record.setImg2(newFile);
         }
         record.setId(null);
         nis.addInfo(record);
@@ -101,12 +111,20 @@ public class NewsInfoController {
      */
     @ResponseBody
     @RequestMapping(value = "change", method = RequestMethod.POST)
-    public Map<String, Object> change(NewsInfo record){
+    public Map<String, Object> change(NewsInfo record, MultipartFile[] files) throws Exception{
         if (record.getId() == null || record.getTitle() == null || record.getContent() == null ||
                 record.getPubdate() == null || record.getType() == null) {
             return ResponseCode.error("参数不全");
         }
-        System.out.println(record);
+        for (int i = 0; i < files.length; i++) {
+            MultipartFile file = files[i];
+            String s = file.getOriginalFilename();
+            String newFile = MyFile.newFile(s, file);
+            if (i == 0)
+                record.setImg1(newFile);
+            else
+                record.setImg2(newFile);
+        }
         nis.updInfo(record);
         return ResponseCode.ok("修改成功！");
     }
@@ -127,6 +145,8 @@ public class NewsInfoController {
             return ResponseCode.error("id不存在");
         }
         nis.deleteByPrimaryKey(id);
+        MyFile.delFile(info.getImg1());
+        MyFile.delFile(info.getImg2());
         return ResponseCode.ok("删除成功！");
     }
 

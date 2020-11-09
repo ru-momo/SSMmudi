@@ -19,7 +19,7 @@
 			</div>
 
 			<div class="dl-log">欢迎您，<span class="dl-log-user">root</span>
-				<a href="/chinapost/index.php?m=Public&a=logout" title="退出系统" class="dl-log-quit">[退出]</a>
+				<a href="http://127.0.0.1:5500/" title="退出系统" class="dl-log-quit">[退出]</a>
 			</div>
 		</div>
 		<div class="content">
@@ -31,12 +31,12 @@
 					<li class="nav-item dl-selected">
 						<div class="nav-item-inner nav-home">系统管理</div>
 					</li>
-					<li class="nav-item dl-selected">
-						<div class="nav-item-inner nav-order">业务管理</div>
-					</li>
-					<li class="nav-item dl-selected">
-						<div class="nav-item-inner nav-order">用户管理</div>
-					</li>
+<%--					<li class="nav-item dl-selected">--%>
+<%--						<div class="nav-item-inner nav-order">业务管理</div>--%>
+<%--					</li>--%>
+<%--					<li class="nav-item dl-selected">--%>
+<%--						<div class="nav-item-inner nav-order">用户管理</div>--%>
+<%--					</li>--%>
 				</ul>
 			</div>
 			<ul id="J_NavContent" class="dl-tab-conten">
@@ -56,42 +56,44 @@
 						items: [{
 							id: '1',
 							text: '地区管理',
-							href: 'Area/index'
+							href: 'admin/Area/index'
 						}, {
 							id: '2',
 							text: '新闻管理',
-							href: 'News/index'
+							href: 'admin/News/index'
 						}, {
 							id: '3',
 							text: '酒的详细信息',
-							href: 'Product/index'
+							href: 'admin/Product/index'
 						}, {
 							id: '4',
 							text: '酒类管理',
-							href: 'Type/index'
+							href: 'admin/Type/index'
 						}, {
 							id: '5',
 							text: '酒的库存管理',
-							href: 'ProductYear/index'
+							href: 'admin/ProductYear/index'
 						}]
 					}]
-				}, {
-					id: '7',
-					homePage: '9',
-					menu: [{
-						text: '业务管理',
-						items: [{
-							id: '9',
-							text: '查询业务',
-							href: 'Node/index.html'
-						},{
-							id: '10',
-							text: '新增业务',
-							href: 'Node/index.html'
-						}
-						]
-					}]
-				}];
+				}
+				// , {
+				// 	id: '7',
+				// 	homePage: '9',
+				// 	menu: [{
+				// 		text: '业务管理',
+				// 		items: [{
+				// 			id: '9',
+				// 			text: '查询业务',
+				// 			href: 'Node/index.html'
+				// 		},{
+				// 			id: '10',
+				// 			text: '新增业务',
+				// 			href: 'Node/index.html'
+				// 		}
+				// 		]
+				// 	}]
+				// }
+				];
 				new PageUtil.MainPage({
 					modulesConfig: config
 				});

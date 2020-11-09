@@ -31,7 +31,7 @@
 </head>
 <body>
 <form class="form-inline definewidth m20" action="index" method="get">
-    名称： <input type="text" name="name" id="name"
+    中文名称： <input type="text" name="name" id="name"
                  class="abc input-default" placeholder="" value="${name}">&nbsp;&nbsp;
     <button type="submit" class="btn btn-primary">查询</button>&nbsp;&nbsp;
     <button type="button" class="btn btn-success" id="addnew" data-toggle="modal" data-target="#myModal">添加</button>&nbsp;&nbsp;

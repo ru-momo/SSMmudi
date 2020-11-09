@@ -44,6 +44,8 @@
         <th>新闻标题</th>
         <th>详细内容</th>
         <th>发布时间</th>
+        <th>img1</th>
+        <th>img2</th>
         <th>新闻类型</th>
         <th>操作</th>
     </tr>
@@ -51,11 +53,13 @@
     <c:forEach items="${page.rows}" var="nl">
         <tr>
             <td width="5%">${nl.id}</td>
-            <td width="15%">${nl.title}</td>
-            <td width="58%">${nl.content}</td>
-            <td width="7%">
+            <td width="10%">${nl.title}</td>
+            <td width="45%">${nl.content}</td>
+            <td width="6%">
                 <fmt:formatDate value="${nl.pubdate}" pattern="yyyy-MM-dd"/>
             </td>
+            <td width="12%">${nl.img1}</td>
+            <td width="12%">${nl.img2}</td>
             <td width="5%">${nl.type == 1 ? "文章" : "视频"}</td>
             <td width="10%">
                 <button onclick="change(${nl.id})" type="button" class="btn btn-warning" data-toggle="modal"
@@ -93,7 +97,7 @@
                 </button>
                 <h4 class="modal-title" id="myModalLabel"></h4>
             </div>
-            <form id="frm" method="post">
+            <form id="frm" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="id" id="id">
                 <input type="reset" name="reset" style="display: none;" />
                 <table class="table table-bordered table-hover definewidth m10">
@@ -106,10 +110,18 @@
                         <td><input type="date" id="pubdate" name="pubdate"></td>
                     </tr>
                     <tr>
-                        <td class="tableleft">内容</td>
+                        <td class="tableleft">详细内容</td>
                         <td>
                             <textarea cols=50 rows="8" id="content" name="content"></textarea>
                         </td>
+                    </tr>
+                    <tr>
+                        <td width="15%" class="tableleft">img1</td>
+                        <td><input type="file" id="img1" name="files"></td>
+                    </tr>
+                    <tr>
+                        <td width="15%" class="tableleft">img2</td>
+                        <td><input type="file" id="img2" name="files"></td>
                     </tr>
                     <tr>
                         <td class="tableleft">类型</td>

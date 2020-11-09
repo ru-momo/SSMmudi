@@ -2,20 +2,25 @@
 $(function () {
     $("#subfrm").click(function () {
         var label = $("#myModalLabel").text();
-        var cname = $("#cname");
-        var ename = $("#ename");
-        var parentId = $("#parentId");
+        var wineId = $("#wineId");
+        var year = $("#year");
+        var price = $("#price");
+        var stock = $("#stock");
 
-        if (cname.val() === null || cname.val() === "") {
-            alert("名称不能为空");
+        if (wineId.val() === null || wineId.val() === "") {
+            alert("编号不能为空");
             return false;
         }
-        if (ename.val() === null || ename.val() === "") {
-            alert("简介内容不能为空");
+        if (year.val() === null || year.val() === "") {
+            alert("年份不能为空");
             return false;
         }
-        if (parentId.val() === null || parentId.val() === "") {
-            alert("介绍内容不能为空");
+        if (price.val() === null || price.val() === "") {
+            alert("价格不能为空");
+            return false;
+        }
+        if (stock.val() === null || stock.val() === "") {
+            alert("库存不能为空");
             return false;
         }
         if (label === "编辑") {
@@ -87,9 +92,10 @@ function change(id) {
             } else if (data.code === 200) {
                 $("#myModalLabel").text("编辑");
                 $("#id").val(info.id);
-                $("#cname").val(info.cname);
-                $("#ename").val(info.ename);
-                $("#parentId").val(info.parentId);
+                $("#wineId").val(info.wineId);
+                $("#year").val(info.year);
+                $("#price").val(info.price);
+                $("#stock").val(info.stock);
             }
         }
     })

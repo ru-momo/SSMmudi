@@ -1,7 +1,8 @@
 
 $(function () {
     $("#subfrm").click(function () {
-        console.log($("#pubdate").val());
+        var bigImg = $("#img1").get(0).files[0];
+        var bigImg2 = $("#img2").get(0).files[0];
         dateFormat =/^(\d{4})-(\d{2})-(\d{2})$/;
         if ($("#title").val() === null || $("#title").val() === "") {
             alert("标题不能为空");
@@ -20,9 +21,18 @@ $(function () {
             return false;
         }
         var label = $("#myModalLabel").text();
+
+        if (label === "添加" && !bigImg) {
+            alert("必须上传文件");
+            return false;
+        }
+        if (label === "添加" && !bigImg2) {
+            alert("必须上传文件");
+            return false;
+        }
         if (label === "编辑") {
-            var url = "change";
-            sub(url);
+            var typeurl = "change";
+            sub(typeurl);
         }
         if (label === "添加") {
             var url = "add";
@@ -61,10 +71,14 @@ function del(id) {
 }
 
 function sub(url) {
+    var formData = new FormData($("#frm")[0]);
     $.ajax({
         type: "post",
         url: url,
-        data: $("#frm").serialize(),
+        data: formData,
+        cache: false,        // 不缓存数据
+        processData: false,  // 不处理数据
+        contentType: false,   // 不设置内容类型
         success: function (data) {
             if (data.code === 200) {
                 alert(data.data);
@@ -85,6 +99,7 @@ function change(id) {
         type: "get",
         success: function (data) {
             var info = data.data;
+            console.log(info);
             if (data.code === 500) {
                 alert(data.data);
                 $('#myModal').modal('hide');
@@ -94,6 +109,8 @@ function change(id) {
                 $("#title").val(info.title);
                 $("#content").text(info.content);
                 $("#pubdate").val(info.pubdate);
+                // $("#img1").val(info.img1);
+                // $("#img2").val(info.img2);
                 if (info.type === 1) {
                     $("#radio1").attr("checked", "");
                 }
