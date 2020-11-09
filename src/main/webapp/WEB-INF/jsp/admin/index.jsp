@@ -63,16 +63,16 @@
 							href: 'News/index'
 						}, {
 							id: '3',
-							text: '角色管理',
-							href: 'Role/index.html'
+							text: '酒的详细信息',
+							href: 'Product/index'
 						}, {
 							id: '4',
-							text: '用户管理',
-							href: 'User/index.html'
+							text: '酒类管理',
+							href: 'Type/index'
 						}, {
-							id: '6',
-							text: '菜单管理',
-							href: 'Menu/index.html'
+							id: '5',
+							text: '酒的库存管理',
+							href: 'ProductYear/index'
 						}]
 					}]
 				}, {

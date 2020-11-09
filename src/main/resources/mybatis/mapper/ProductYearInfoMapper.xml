@@ -14,7 +14,7 @@
     <sql id="product_year_info_where">
         <where>
             <if test="name != null and name != ''">
-                and title like '%${name}%'
+                and wine_id like '%${name}%'
             </if>
         </where>
     </sql>
@@ -32,6 +32,12 @@
     <select id="getListCountByPage" parameterType="map" resultType="int">
         select count(id) from product_year_info
         <include refid="product_year_info_where"/>
+    </select>
+
+    <!-- 通过年份和编号获取 -->
+    <select id="getInfo" parameterType="map" resultMap="BaseResultMap">
+        select id, wine_id, year, price, stock from product_year_info
+        where wine_id = ${wineId} and year = ${year}
     </select>
 
 </mapper>

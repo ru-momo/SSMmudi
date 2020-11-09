@@ -89,6 +89,7 @@ public class NewsInfoController {
                 record.getPubdate() == null || record.getType() == null) {
             return ResponseCode.error("参数不全");
         }
+        record.setId(null);
         nis.addInfo(record);
         return ResponseCode.ok("添加成功！");
     }

@@ -22,10 +22,10 @@
     <select id="getListInfoByPage" parameterType="map" resultMap="BaseResultMap">
         select id, cname, ename, parent_id from type_info
         <include refid="type_info_where"/>
+        order by parent_id
         <if test="startIndex != null and pageSize != null">
             limit #{startIndex}, #{pageSize}
         </if>
-        order by parent_id
     </select>
 
     <!--获取总条数 -->

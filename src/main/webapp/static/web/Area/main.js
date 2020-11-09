@@ -21,6 +21,7 @@ $(function () {
 
     $("#addnew").click(function () {
         $("input[type=reset]").trigger("click");
+        $("#id").val("");
         $("#myModalLabel").text("添加");
     })
 })

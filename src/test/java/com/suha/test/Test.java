@@ -21,6 +21,9 @@ public class Test {
 
     @org.junit.Test
     public void test(){
-        rs.delAll();
+        int a = 0x122;
+        boolean f = true;
+        System.out.println(a);
+        System.out.println(a/2);
     }
 }

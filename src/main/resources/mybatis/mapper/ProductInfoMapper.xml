@@ -19,7 +19,7 @@
     <sql id="product_info_where">
         <where>
             <if test="name != null and name != ''">
-                and title like '%${name}%'
+                and name like '%${name}%'
             </if>
         </where>
     </sql>
@@ -39,5 +39,13 @@
         select count(id) from product_info
         <include refid="product_info_where"/>
     </select>
+
+    <!-- 获取最新发布的十二条 -->
+    <select id="getListInfoOrderBy" resultMap="BaseResultMap">
+        select id, name, info, introduce, type_id, alcoholic_strength,
+        area_id, net_weight, sale_count, big_img from product_info
+        order by id desc
+    </select>
+
 
 </mapper>

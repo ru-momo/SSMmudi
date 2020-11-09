@@ -101,7 +101,6 @@ public class AreaInfoController {
     /**
      * 根据id进行查询
      * @param id
-     * @param model
      * @return
      */
     @ResponseBody

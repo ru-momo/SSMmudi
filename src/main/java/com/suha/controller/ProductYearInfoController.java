@@ -5,6 +5,7 @@ import com.suha.service.ProductYearInfoService;
 import com.suha.util.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,11 +30,15 @@ public class ProductYearInfoController {
      * @param pageSize
      * @return
      */
-    @ResponseBody
-    @RequestMapping(value = "pageList",method = RequestMethod.GET)
-    public Page<ProductYearInfo> getPageList(String name,
+    @RequestMapping(value = "index",method = RequestMethod.GET)
+    public String index(String name, Model model,
                                          @RequestParam(defaultValue = "1") Integer pageNum,
-                                         @RequestParam(defaultValue = "3") Integer pageSize){
-        return pyis.getPageList(name,pageNum,pageSize);
+                                         @RequestParam(defaultValue = "5") Integer pageSize){
+        Page<ProductYearInfo> pageList = pyis.getPageList(name, pageNum, pageSize);
+        model.addAttribute("page", pageList);
+        model.addAttribute("name", name);
+        return "admin/ProductYear/index";
     }
+
+
 }

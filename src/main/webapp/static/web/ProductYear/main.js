@@ -1,28 +1,26 @@
 
 $(function () {
     $("#subfrm").click(function () {
-        console.log($("#pubdate").val());
-        dateFormat =/^(\d{4})-(\d{2})-(\d{2})$/;
-        if ($("#title").val() === null || $("#title").val() === "") {
-            alert("标题不能为空");
-            return false;
-        }
-        if ($("#pubdate").val() === null) {
-            alert("发布日期不能为空");
-            return false;
-        }
-        if (!dateFormat.test($("#pubdate").val())) {
-            alert("日期格式不正确");
-            return false;
-        }
-        if ($("#content").val() === null || $("#content").val() === "") {
-            alert("新闻内容不能为空");
-            return false;
-        }
         var label = $("#myModalLabel").text();
+        var cname = $("#cname");
+        var ename = $("#ename");
+        var parentId = $("#parentId");
+
+        if (cname.val() === null || cname.val() === "") {
+            alert("名称不能为空");
+            return false;
+        }
+        if (ename.val() === null || ename.val() === "") {
+            alert("简介内容不能为空");
+            return false;
+        }
+        if (parentId.val() === null || parentId.val() === "") {
+            alert("介绍内容不能为空");
+            return false;
+        }
         if (label === "编辑") {
-            var url = "change";
-            sub(url);
+            var typeurl = "change";
+            sub(typeurl);
         }
         if (label === "添加") {
             var url = "add";
@@ -32,7 +30,6 @@ $(function () {
 
     $("#addnew").click(function () {
         $("input[type=reset]").trigger("click");
-        $("#content").text("");
         $("#id").val("");
         $("#myModalLabel").text("添加");
     })
@@ -43,10 +40,11 @@ $(function () {
 function del(id) {
     if (confirm("你确定要删除吗？")) {
         $.ajax({
-            url: "del?id=" + id,
-            type: "get",
+            url: "del",
+            type: "post",
+            data:{id:id},
+            dataType:"json",
             success: function (data) {
-                console.log(data);
                 if (data.code === 200) {
                     alert(data.data);
                     window.location.href = "index";
@@ -71,9 +69,6 @@ function sub(url) {
                 window.location.href = "index";
             } else {
                 alert(data.data);
-                if (data.data.indexOf("id") !== -1){
-                    reload();
-                }
             }
         }
     })
@@ -81,25 +76,20 @@ function sub(url) {
 
 function change(id) {
     $.ajax({
-        url: "findById?id=" + id,
+        url: "getInfoById?id=" + id,
         type: "get",
         success: function (data) {
             var info = data.data;
+            console.log(info);
             if (data.code === 500) {
                 alert(data.data);
                 $('#myModal').modal('hide');
             } else if (data.code === 200) {
                 $("#myModalLabel").text("编辑");
                 $("#id").val(info.id);
-                $("#title").val(info.title);
-                $("#content").text(info.content);
-                $("#pubdate").val(info.pubdate);
-                if (info.type === 1) {
-                    $("#radio1").attr("checked", "");
-                }
-                if (info.type === 2) {
-                    $("#radio2").attr("checked", "");
-                }
+                $("#cname").val(info.cname);
+                $("#ename").val(info.ename);
+                $("#parentId").val(info.parentId);
             }
         }
     })
